@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRL Service Engine — Anything you need. Built, automated, or created.</title>
+<meta name="description" content="The marketplace where anyone can access powerful digital services. AI content, design, automation, business docs. Choose → Pay → Receive. Feels illegal how easy it is.">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="bg-glow g1"></div>
+<div class="bg-glow g2"></div>
+
+<nav class="nav">
+<div class="container nav-inner">
+<div class="nav-left">
+<div class="logo">TRL <span>ENGINE</span></div>
+<div class="nav-links">
+<a href="#services">Services</a>
+<a href="#how">How It Works</a>
+<a href="#pricing">Pricing</a>
+<a href="#orders" onclick="openAdmin()">My Orders</a>
+</div>
+</div>
+<div class="nav-right">
+<a href="https://chat.whatsapp.com/BY9440hj8ws9F5034zBhHL" target="_blank" class="btn-ghost">Community</a>
+<a href="https://wa.me/923190091457?text=Salam%20Rashid%2C%20I%20need%20a%20service%20from%20TRL%20Engine" target="_blank" class="btn-white">WhatsApp</a>
+</div>
+</div>
+</nav>
+
+<section class="hero">
+<div class="container">
+<div class="badge"><span class="dot"></span> TRL Service Engine • Marketplace V1 — Feels illegal how easy it is</div>
+<h1 class="h1">Anything you need.<br>Built, automated,<br><span>or created.</span></h1>
+<p class="hero-p">The marketplace where anyone can access powerful digital services. No hunting freelancers. No overpriced agencies. Choose service → answer questions → pay → receive.<br><strong>Digital Service Machine, not a freelancer website.</strong></p>
+<div class="hero-btns">
+<a href="#services" class="btn-primary">🔍 Explore Services →</a>
+<button onclick="openRequestModal('Custom Request')" class="btn-secondary">✨ Create Your Request</button>
+</div>
+<div class="hero-stats">
+<div><span class="num">50+</span> Services</div>
+<div class="dot">•</div>
+<div><span class="num">$5</span> Starting</div>
+<div class="dot">•</div>
+<div><span class="num">24h</span> Delivery</div>
+<div class="dot">•</div>
+<div><span class="num">0319 0091457</span> Direct</div>
+</div>
+
+<div class="trust-bar">
+<div class="trust-item">⚡ Instant Quote</div>
+<div class="trust-item">💬 WhatsApp Direct</div>
+<div class="trust-item">🎯 Premium Quality</div>
+<div class="trust-item">🔒 Secure Payment</div>
+</div>
+</div>
+</section>
+
+<section id="services" class="section dark">
+<div class="container">
+<div class="section-head">
+<div><div class="label">Service Marketplace</div><h2 class="h2">What do you need?</h2></div>
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="Search: logo, automation, business plan..." onkeyup="filterServices()">
+<div class="filter-pills">
+<button class="pill active" onclick="filterCategory('all')">All</button>
+<button class="pill" onclick="filterCategory('ai-content')">AI Content</button>
+<button class="pill" onclick="filterCategory('ai-business')">Business Tools</button>
+<button class="pill" onclick="filterCategory('ai-design')">Design</button>
+<button class="pill" onclick="filterCategory('automation')">Automation</button>
+<button class="pill" onclick="filterCategory('growth')">Growth</button>
+<button class="pill" onclick="filterCategory('documents')">Documents</button>
+</div>
+</div>
+</div>
+
+<div id="servicesGrid" class="services-grid mt"></div>
+</div>
+</section>
+
+<section id="how" class="section">
+<div class="container">
+<div class="center-header"><div class="label">The Magic Button Feature</div><h2 class="h2">How the Service Machine works</h2><p>Normal freelancer: "I can design a logo."<br><strong>TRL Engine: "Choose logo → Pay → Automated process → Delivery."</strong></p></div>
+<div class="steps-grid mt">
+<div class="step-card"><div class="step-num">1</div><h4>Browse & Choose</h4><p>Explore 50+ premium services. AI content, design, automation, business docs. Filter by need.</p><span class="step-tag">Category → Service</span></div>
+<div class="step-card"><div class="step-num">2</div><h4>Magic Button → Get This Service</h4><p>Click Get This Service → Form opens: name, WhatsApp, what you need, deadline, budget. 30 seconds.</p><span class="step-tag">Form: 5 fields only</span></div>
+<div class="step-card highlight"><div class="step-num">3</div><h4>Pay & Track</h4><p>Gets invoice → Pay JazzCash/Easypaisa/Bank (PK) or Stripe (Global) → Status: Payment Received ✅ → Production ⚙️ → Completed 🎯</p><span class="step-tag">Secure + Simple</span></div>
+<div class="step-card"><div class="step-num">4</div><h4>Receive + AI Boost</h4><p>Behind scenes AI generates drafts (names, logos, content, research). We review + deliver premium result. You save time, get quality.</p><span class="step-tag">AI + Human Review</span></div>
+</div>
+
+<div class="demo-box mt">
+<div class="demo-left">
+<div class="label">Live Example: What happens after you click</div>
+<div class="code-mock">
+<div class="code-line"><span class="gray">NEW ORDER</span></div>
+<div class="code-line"><span class="blue">Customer:</span> Ali — 0319 0091457</div>
+<div class="code-line"><span class="blue">Service:</span> AI Logo Design</div>
+<div class="code-line"><span class="blue">Details:</span> Need gaming brand logo, black + electric blue, premium minimal</div>
+<div class="code-line"><span class="blue">Deadline:</span> 24 hours</div>
+<div class="code-line"><span class="blue">Budget:</span> $25 (Growth)</div>
+<div class="code-line"><span class="green">→ WhatsApp auto sent to you (admin) + Order saved in dashboard + Customer gets tracking link</span></div>
+</div>
+</div>
+<div class="demo-right">
+<h4>Customer Side</h4><ul><li>Website → Service catalog → Order form → Payment → Order tracking</li></ul>
+<h4 style="margin-top:20px">Admin Side (Your Dashboard)</h4><ul><li>Orders, Customers, Revenue, Services, Messages, Delivery Files — One place</li></ul>
+<a href="admin.html" target="_blank" class="btn-primary small" style="margin-top:20px">Open Admin Dashboard →</a>
+</div>
+</div>
+</div>
+</section>
+
+<section id="pricing" class="section dark">
+<div class="container">
+<div class="label">Pricing Psychology — Not Competing With Agencies</div>
+<h2 class="h2">Starter → Growth → Premium.<br>Choose your speed.</h2>
+<div class="pricing-tiers mt">
+<div class="tier"><div class="tier-head"><div class="sora tier-name">Starter</div><div class="tier-price">$5 - $25</div><div class="tier-sub">Small tasks, fast delivery</div></div><ul><li>✓ Social captions, product descriptions</li><li>✓ Simple logos, posters</li><li>✓ Basic research, templates</li><li>✓ 24-48h delivery</li></ul><div class="tier-tag">Best for: Try TRL, small needs</div></div>
+<div class="tier popular"><div class="popular-badge">Most Popular — 80%</div><div class="tier-head"><div class="sora tier-name">Growth</div><div class="tier-price">$50 - $200</div><div class="tier-sub">Business improvements</div></div><ul><li>✓ Brand kits, business plans</li><li>✓ AI automation setup</li><li>✓ Presentations, proposals, company profiles</li><li>✓ Strategy docs, market research</li></ul><div class="tier-tag blue">Best for: Businesses, creators, agencies</div></div>
+<div class="tier"><div class="tier-head"><div class="sora tier-name">Premium</div><div class="tier-price">$500+</div><div class="tier-sub">Custom systems</div></div><ul><li>✓ Full business OS, dashboards</li><li>✓ Custom AI assistants (RAG)</li><li>✓ Complete automation engine</li><li>✓ White-glove, founder-led</li></ul><div class="tier-tag">Best for: Scaling companies</div></div>
+</div>
+<div class="positioning mt">
+<div class="pos-left"><div class="label">Brand Position</div><h4>Don't say: "We sell AI services."</h4><p style="text-decoration:line-through;color:#666">We sell AI services.</p><h4 style="margin-top:16px;color:#0066FF">Say: "TRL gives people access to the tools, systems, and intelligence needed to build faster."</h4></div>
+<div class="pos-right"><div class="label">The Advantage</div><p>Anyone can copy the website.<br>Your moat is:<br><br><strong>Your service library<br>Your trust<br>Your speed<br>Your customer experience<br>Your AI systems behind it</strong></p></div>
+</div>
+</div>
+</section>
+
+<section class="section future">
+<div class="container">
+<div class="label">Future Expansion</div>
+<h2 class="h2">V1 → V4 Ecosystem</h2>
+<div class="roadmap mt">
+<div class="road-item active"><div class="road-num">V1 Now</div><h4>Service Marketplace</h4><p>50+ services, magic button, WhatsApp orders, manual delivery</p><span class="road-status green">● Live Now</span></div>
+<div class="road-item"><div class="road-num">V2 Next</div><h4>AI Auto-Completes</h4><p>AI automatically completes simple orders (captions, logos, research). You review.</p><span class="road-status blue">● Building Next</span></div>
+<div class="road-item"><div class="road-num">V3</div><h4>Creator Marketplace</h4><p>Other creators sell services on TRL. You take commission. Platform model.</p><span class="road-status">○ Future</span></div>
+<div class="road-item"><div class="road-num">V4</div><h4>Full TRL Ecosystem</h4><p>Learning + Building + Automation + Growth. Complete OS for ambition.</p><span class="road-status">○ Vision</span></div>
+</div>
+</div>
+</section>
+
+<footer class="footer">
+<div class="container center">
+<div class="logo">TRL <span>ENGINE</span></div>
+<p>Anything you need. Built, automated, or created. The marketplace where anyone can access powerful digital services.</p>
+<p style="margin-top:8px;color:#666;font-size:11px">Feels illegal how easy it is • Digital Service Machine, not a freelancer website • Pakistan → Dubai • WhatsApp 0319 0091457</p>
+<div class="footer-links"><a href="https://wa.me/923190091457">WhatsApp</a><a href="https://chat.whatsapp.com/BY9440hj8ws9F5034zBhHL">Community</a><a href="admin.html">Admin Dashboard</a><a href="https://github.com/therightlifestyle/TRL-WEB-PHASE-1">GitHub</a></div>
+</div>
+</footer>
+
+<!-- ORDER MODAL - MAGIC BUTTON -->
+<div id="orderModal" class="modal">
+<div class="modal-bg" onclick="closeModal()"></div>
+<div class="modal-box">
+<div class="modal-head">
+<div><div class="label">Magic Button — Get This Service</div><h3 id="modalServiceName" class="sora">Service Name</h3></div>
+<button onclick="closeModal()" class="close-btn">×</button>
+</div>
+<div class="modal-body">
+<div class="form-row"><div class="form-group"><label>Your Name *</label><input id="custName" type="text" placeholder="Ali Ahmed"></div><div class="form-group"><label>WhatsApp Number *</label><input id="custWhatsApp" type="text" placeholder="0319 0091457"></div></div>
+<div class="form-group"><label>What do you need? *</label><textarea id="custDetails" placeholder="Example: Need gaming brand logo, black + electric blue, premium minimal, for YouTube channel..."></textarea></div>
+<div class="form-row"><div class="form-group"><label>Deadline</label><select id="custDeadline"><option>24 hours (Fast)</option><option>3 days (Standard)</option><option>7 days (Relaxed)</option></select></div><div class="form-group"><label>Budget Range</label><select id="custBudget"><option>$5-$25 Starter</option><option>$50-$200 Growth</option><option>$500+ Premium</option><option>Custom - Discuss on WhatsApp</option></select></div></div>
+<div class="form-group"><label>Service</label><input id="custService" type="text" readonly style="background:#111;color:#888"></div>
+<div class="payment-preview">
+<div class="label">What happens next?</div>
+<div class="flow"><span>Submit</span> <span>→</span> <span>WhatsApp to Rashid</span> <span>→</span> <span>Invoice</span> <span>→</span> <span>Pay</span> <span>→</span> <span>Production ⚙️</span> <span>→</span> <span>Delivery 🎯</span></div>
+</div>
+<button onclick="submitOrder()" class="btn-primary full">Submit Order → Send to WhatsApp</button>
+<p class="small-muted">By submitting, order is saved + WhatsApp message auto-opens to admin (0319 0091457). Customer gets order ID for tracking.</p>
+</div>
+</div>
+</div>
+
+<script src="script.js"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f"}' crossorigin="anonymous"></script>
+</body>
+</html>

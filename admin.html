@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRL Engine Admin — Orders Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}html,body{background:#000;color:#fff;font-family:'Inter',sans-serif}
+.container{max-width:1200px;margin:0 auto;padding:24px}.sora{font-family:'Sora'}
+.nav{border-bottom:1px solid #111;padding:16px 0;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Sora';font-weight:800;font-size:20px}
+.card{background:#0A0A0A;border:1px solid #1A1A1A;border-radius:16px;padding:20px;margin-top:16px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:20px}
+.kpi{background:#0A0A0A;border:1px solid #1A1A1A;border-radius:16px;padding:20px}
+.kpi .num{font-family:'Sora';font-size:28px;font-weight:700}
+.kpi .label{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.08em;margin-top:4px}
+table{width:100%;border-collapse:collapse;margin-top:20px}
+th{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#666;text-align:left;padding:12px;border-bottom:1px solid #1A1A1A}
+td{font-size:13px;padding:12px;border-bottom:1px solid #111;color:#CCC}
+.status{font-size:11px;padding:4px 10px;border-radius:100px;display:inline-block}
+.status-pending{background:rgba(255,200,0,0.1);border:1px solid rgba(255,200,0,0.2);color:#FFC800}
+.status-paid{background:rgba(0,102,255,0.1);border:1px solid rgba(0,102,255,0.2);color:#0066FF}
+.status-production{background:rgba(255,100,0,0.1);border:1px solid rgba(255,100,0,0.2);color:#FF6400}
+.status-completed{background:rgba(0,200,80,0.1);border:1px solid rgba(0,200,80,0.2);color:#00C950}
+.btn{padding:6px 12px;border-radius:100px;font-size:11px;font-weight:600;cursor:pointer;border:none;margin-right:4px}
+.btn-paid{background:#0066FF;color:#fff}
+.btn-prod{background:#FF6400;color:#fff}
+.btn-done{background:#00C950;color:#fff}
+.btn-wa{background:#25D366;color:#fff}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="nav"><div class="logo">TRL ENGINE ADMIN</div><div style="display:flex;gap:10px"><a href="index.html" style="color:#888;text-decoration:none;font-size:13px">← Marketplace</a><a href="https://wa.me/923190091457" target="_blank" style="background:#fff;color:#000;padding:8px 14px;border-radius:100px;font-size:12px;font-weight:600;text-decoration:none">WhatsApp 0319 0091457</a></div></div>
+
+<div class="grid4">
+<div class="kpi"><div class="num" id="totalOrders">0</div><div class="label">Total Orders</div></div>
+<div class="kpi"><div class="num" id="totalRevenue">$0</div><div class="label">Revenue (Est)</div></div>
+<div class="kpi"><div class="num" id="pendingOrders">0</div><div class="label">Pending Payment</div></div>
+<div class="kpi"><div class="num" id="completedOrders">0</div><div class="label">Completed 🎯</div></div>
+</div>
+
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+<div><div class="sora" style="font-size:18px;font-weight:700">Orders Dashboard</div><div style="font-size:12px;color:#666">Customer Side: Website → Order → Payment → Tracking • You see orders here</div></div>
+<div style="display:flex;gap:8px"><button onclick="exportOrders()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#fff;padding:8px 14px;border-radius:100px;font-size:12px;cursor:pointer">Export CSV</button><button onclick="clearOrders()" style="background:rgba(255,0,0,0.1);border:1px solid rgba(255,0,0,0.2);color:#FF4444;padding:8px 14px;border-radius:100px;font-size:12px;cursor:pointer">Clear All</button></div>
+</div>
+
+<table>
+<thead><tr><th>Order ID</th><th>Customer</th><th>Service</th><th>Budget</th><th>Deadline</th><th>Status</th><th>Actions</th></tr></thead>
+<tbody id="ordersBody"><tr><td colspan="7" style="text-align:center;padding:40px;color:#555">No orders yet — Test by placing order from marketplace</td></tr></tbody>
+</table>
+</div>
+
+<div class="card" style="margin-top:20px">
+<div class="sora" style="font-weight:700">How Backend System Works (MVP)</div>
+<div style="font-size:12px;color:#888;margin-top:10px;line-height:1.6">
+<b>Customer Side:</b> Website (index.html) → Service catalog (23 services) → Order form (magic button) → Payment (JazzCash/Easypaisa/Bank PK, Stripe Global) → Order tracking<br><br>
+<b>Admin Side (This Dashboard):</b> You see Orders, Customers, Revenue, Status, WhatsApp. Click WhatsApp to message customer, change status: Payment Received ✅ → Production Started ⚙️ → Completed 🎯 → Delivery Files<br><br>
+<b>AI Integration:</b> Customer requests "Make me a business name" → System behind scenes: AI generates names + logo concepts + brand colors + description → You review + deliver premium result. Speed + trust = moat.<br><br>
+<b>Storage:</b> Currently localStorage (browser). For production, connect Supabase: orders table (id, customer, service, details, whatsapp, budget, status, created_at) + webhook n8n → WhatsApp notify.
+</div>
+</div>
+</div>
+
+<script>
+function loadOrders(){
+  const orders = JSON.parse(localStorage.getItem('trl_orders') || '[]');
+  document.getElementById('totalOrders').textContent = orders.length;
+  document.getElementById('pendingOrders').textContent = orders.filter(o=>o.status.includes('Pending')).length;
+  document.getElementById('completedOrders').textContent = orders.filter(o=>o.status.includes('Completed')).length;
+  let rev = 0;
+  orders.forEach(o=>{ const m=o.budget.match(/\$(\d+)/); if(m) rev+=parseInt(m[1]); });
+  document.getElementById('totalRevenue').textContent = '$'+rev;
+
+  const tbody = document.getElementById('ordersBody');
+  if(orders.length===0){
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:#555">No orders yet — Test by placing order from marketplace. Orders saved here in localStorage.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = orders.map(o=>`
+    <tr>
+      <td style="font-family:monospace">${o.id}</td>
+      <td><div style="font-weight:600">${o.customer}</div><div style="font-size:11px;color:#666">${o.whatsapp}</div></td>
+      <td><div style="font-weight:500">${o.service}</div><div style="font-size:11px;color:#666;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${o.details}</div></td>
+      <td>${o.budget}</td>
+      <td style="font-size:11px">${o.deadline}</td>
+      <td><span class="status ${o.status.includes('Pending')?'status-pending':o.status.includes('Payment')?'status-paid':o.status.includes('Production')?'status-production':'status-completed'}">${o.status}</span></td>
+      <td>
+        <a href="https://wa.me/${o.whatsapp.replace(/[^0-9]/g,'')}?text=Hi%20${encodeURIComponent(o.customer)}%2C%20your%20TRL%20order%20${o.id}%20for%20${encodeURIComponent(o.service)}%20update%3A%20" target="_blank" class="btn btn-wa">WhatsApp</a>
+        <button class="btn btn-paid" onclick="updateStatus('${o.id}','Payment Received ✅')">Paid</button>
+        <button class="btn btn-prod" onclick="updateStatus('${o.id}','Production Started ⚙️')">Prod</button>
+        <button class="btn btn-done" onclick="updateStatus('${o.id}','Completed 🎯')">Done</button>
+      </td>
+    </tr>
+  `).join('');
+}
+function updateStatus(id,status){
+  const orders = JSON.parse(localStorage.getItem('trl_orders') || '[]');
+  const o = orders.find(x=>x.id===id);
+  if(o){ o.status=status; localStorage.setItem('trl_orders', JSON.stringify(orders)); loadOrders(); }
+}
+function clearOrders(){
+  if(confirm('Clear all orders?')){
+    localStorage.removeItem('trl_orders');
+    loadOrders();
+  }
+}
+function exportOrders(){
+  const orders = JSON.parse(localStorage.getItem('trl_orders') || '[]');
+  if(orders.length===0){ alert('No orders'); return; }
+  let csv = 'OrderID,Customer,WhatsApp,Service,Details,Deadline,Budget,Status,Date\n';
+  orders.forEach(o=>{
+    csv += `"${o.id}","${o.customer}","${o.whatsapp}","${o.service}","${o.details.replace(/"/g,'""')}","${o.deadline}","${o.budget}","${o.status}","${o.date}"\n`;
+  });
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download='trl_orders.csv'; a.click();
+}
+loadOrders();
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f"}' crossorigin="anonymous"></script>
+</body>
+</html>
